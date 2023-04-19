@@ -1,0 +1,2 @@
+# 2023MathorCup_A
+对2023年MathorCup竞赛A题的资料和求解代码
