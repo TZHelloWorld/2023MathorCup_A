@@ -60,7 +60,7 @@ $$\min \sum_{(i, j) \in \mathcal{E}} Q_{i j} x_i x_j+\sum_{i \in \mathcal{X}} c_
 `QUBO`问题可以等价的使用`Ising`模型来表示，通过变量 $y_i = 1-2x_i$ 进行转换，将原本`QUBO`模型中决策变量域空间 $\\{ 0,1 \\}$ 映射到 `Ising` 模型决策变量域空间 $\\{ -1 , +1 \\}$ 。转变后的 `Ising` 模型表述如下：
 
 $$
-\min \sum_{(i, j) \in \mathcal{E}} J_{i j} y_{i} y_{j}+\sum_{i \in \mathcal{X}} h_{i} y_{i}, \\\\  J_{i j}=-\frac{1}{4} Q_{i j}\quad, h_{i}=-\frac{1}{2}\left(c_{i}+\sum_{j \in \mathcal{X}} Q_{i j}\right)
+\min \sum_{(i, j) \in \mathcal{E}} J_{i j} y_{i} y_{j}+\sum_{i \in \mathcal{X}} h_{i} y_{i} \quad , \\\\  J_{i j}=-\frac{1}{4} Q_{i j}\quad, h_{i}=-\frac{1}{2}\left(c_{i}+\sum_{j \in \mathcal{X}} Q_{i j}\right)
 $$
 
 其中， $y_{i} \in \\{-1,1\\}, i \in \mathcal{X}$ 
@@ -559,7 +559,9 @@ $$
 
 考虑整体，也就是最终收入 $H$ 有
 
-$$H = \sum_{{(i, j, k) \in \mathcal{X}}} H_{i,j,k} \\\\ = \sum_{i=1}^{10} \sum_{j=1}^{10} \sum_{k=1}^{10} \ [ {L * I * P_{i,j,k} * (1-Q_{i,j,k}) - L * P_{i,j,k} * Q_{i,j,k}} ] \\\\ = L * I * \sum_{i=1}^{10} \sum_{j=1}^{10} \sum_{k=1}^{10}P_{i,j,k}  - L*(I+1)*\sum_{i=1}^{10} \sum_{j=1}^{10} \sum_{k=1}^{10}(P_{i,j,k} * Q_{i,j,k}) \\\\ =  L * I * \sum_{i=1}^{10} \sum_{j=1}^{10} \sum_{k=1}^{10}[( T_{1,i}  *  T_{2,j}  *  T_{3,k} ) * x_{i,j,k}] -\frac {L*(I+1)}{3} * \sum_{i=1}^{10} \sum_{j=1}^{10} \sum_{k=1}^{10}[(H_{1,i} + H_{2,j} + H_{3,k}) * T_{1,i}  *  T_{2,j}  *  T_{3,k} * x_{i,j,k}^2]$$
+$$
+H = \sum_{(i, j, k) \in \mathcal{X} } H_{i,j,k} \\\\ = \sum_{i=1}^{10} \sum_{j=1}^{10} \sum_{k=1}^{10} \ [ {L * I * P_{i,j,k} * (1-Q_{i,j,k}) - L * P_{i,j,k} * Q_{i,j,k}} ] \\\\ = L * I * \sum_{i=1}^{10} \sum_{j=1}^{10} \sum_{k=1}^{10}P_{i,j,k}  - L*(I+1)*\sum_{i=1}^{10} \sum_{j=1}^{10} \sum_{k=1}^{10}(P_{i,j,k} * Q_{i,j,k}) \\\\ =  L * I * \sum_{i=1}^{10} \sum_{j=1}^{10} \sum_{k=1}^{10}[( T_{1,i}  *  T_{2,j}  *  T_{3,k} ) * x_{i,j,k}] -\frac {L*(I+1)}{3} * \sum_{i=1}^{10} \sum_{j=1}^{10} \sum_{k=1}^{10}[(H_{1,i} + H_{2,j} + H_{3,k}) * T_{1,i}  *  T_{2,j}  *  T_{3,k} * x_{i,j,k}^2]
+$$
 
 
 同样考虑最小化目标函数 $-H$ ,此时决策变量的约束条件为：(只有一种方案选取)
