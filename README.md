@@ -59,7 +59,7 @@ $$\min \sum_{(i, j) \in \mathcal{E}} Q_{i j} x_i x_j+\sum_{i \in \mathcal{X}} c_
 
 `QUBO`问题可以等价的使用`Ising`模型来表示，通过变量 $y_i = 1-2x_i$ 进行转换，将原本`QUBO`模型中决策变量域空间 $\\{ 0,1 \\}$ 映射到 `Ising` 模型决策变量域空间 $\\{ -1 , +1 \\}$ 。转变后的 `Ising` 模型表述如下：
 
-$$\begin{aligned}& \min \sum_{(i, j) \in \mathcal{E}} J_{i j} y_{i} y_{j}+\sum_{i \in \mathcal{X}} h_{i} y_{i}, \\\\ \\& J_{i j}=-\frac{1}{4} Q_{i j}\quad, h_{i}=-\frac{1}{2}\left(c_{i}+\sum_{j \in \mathcal{X}} Q_{i j}\right),\end{aligned}$$
+$$\begin{aligned}& \min \sum_{(i, j) \in \mathcal{E}} J_{i j} y_{i} y_{j}+\sum_{i \in \mathcal{X}} h_{i} y_{i}, \\\\ J_{i j}=-\frac{1}{4} Q_{i j}\quad, h_{i}=-\frac{1}{2}\left(c_{i}+\sum_{j \in \mathcal{X}} Q_{i j}\right),\end{aligned}$$
 
 其中， $y_{i} \in \\{-1,1\\}, i \in \mathcal{X}$ 
 
