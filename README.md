@@ -84,7 +84,7 @@ $$
 
 
 $$
-min \quad y=\begin{bmatrix}x_1 & x_2 & x_3 & x_4 \end{bmatrix}\begin{bmatrix}-5 & 2 & 4 & 0 \\2 & -3 & 1 & 0 \\4 & 1 & -8 & 5 \\0 & 0 & 5 & -6\end{bmatrix}\begin{bmatrix}x_1 \\x_2 \\x_3 \\x_4\end{bmatrix}=\mathbf{x} ^t Q \mathbf{x} 
+min \quad y=\begin{bmatrix}x_1 & x_2 & x_3 & x_4 \end{bmatrix}\begin{bmatrix}-5 & 2 & 4 & 0 \\\\ 2 & -3 & 1 & 0 \\\\ 4 & 1 & -8 & 5 \\\\ 0 & 0 & 5 & -6\end{bmatrix}\begin{bmatrix}x_1 \\\\ x_2 \\\\ x_3 \\\\x_4\end{bmatrix}=\mathbf{x} ^t Q \mathbf{x} 
 $$
 
 
