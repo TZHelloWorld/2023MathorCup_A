@@ -82,8 +82,9 @@ $$
 基于此，将优化模型的最小化目标函数写成矩阵形式：
 
 
+
 $$
-min \quad y=\left[\begin{array}{llll}x_1 & x_2 & x_3 & x_4 \end{array}\right]\left[\begin{array}{cccc}-5 & 2 & 4 & 0 \\2 & -3 & 1 & 0 \\4 & 1 & -8 & 5 \\0 & 0 & 5 & -6\end{array}\right]\left[\begin{array}{l}x_1 \\x_2 \\x_3 \\x_4\end{array}\right]=\mathbf{x}^t \mathbf{Q} \mathbf{x}
+min \quad y=\begin{bmatrix}x_1 & x_2 & x_3 & x_4 \end{bmatrix}\begin{bmatrix}-5 & 2 & 4 & 0 \\2 & -3 & 1 & 0 \\4 & 1 & -8 & 5 \\0 & 0 & 5 & -6\end{bmatrix}\begin{bmatrix}x_1 \\x_2 \\x_3 \\x_4\end{bmatrix}=\mathbf{x} ^t Q \mathbf{x} 
 $$
 
 
@@ -166,7 +167,7 @@ $$
 | $x_1+x_2+x_3 \leq 1$ | $P\left(x_1 x_2+x_1 x_3+x_2 x_3\right)$ |
 |        $x=y$         |             $P(x+y-2 x y)$              |
 
-> 这里注意一下 $P(xy)$ 表示的是标量 $P$ 乘以 $(x*y)$ ，也就是 $P*(x*y)$ ，其他类同。
+> 这里注意一下 $P(xy)$ 表示的是标量 $P$ 乘以 $(x \times y)$ ，也就是 $P \times (x \times y)$ ，其他类同。
 
 
 
@@ -196,8 +197,8 @@ $$
 
 其中， $A(s)$ 和 $B(s)$ 是退火路径函数，根据归一化退火时间 $s=t / t_{a}$ ，其中 $t_{a}$ 表示总的退火时间。这样设计可以保证：
 
-* 当 $A(0)=1$ 且 $B(0)=0$ ，$\mathcal{H}(s)$ 表示初始状态 $H_I$ ，由用户自己定义。
-* 当 $A(1)=0$ 且 $B(1)=0$ ，$\mathcal{H}(s)$ 表示退火后的状态 $H_P$ ，这一项也称为问题哈密顿量 (`problem Hamiltonian`)，是最小能量状态。
+* 当 $A(0)=1$ 且 $B(0)=0$ , $\mathcal{H}(s)$ 表示初始状态 $H_I$ ，由用户自己定义。
+* 当 $A(1)=0$ 且 $B(1)=0$ , $\mathcal{H}(s)$ 表示退火后的状态 $H_P$ ，这一项也称为问题哈密顿量 (`problem Hamiltonian`)，是最小能量状态。
 
 那么在设计的时候，初始状态的设计可以根据问题进行简单设计，比如：
 
@@ -205,7 +206,7 @@ $$
 H_{I}=\sum_{i} \sigma_{i}^{x}
 $$
 
-其中， $\sigma_{i}^{x}$ 表示第 $i$ 个量子位的 $Pauli-x$ 算子（泡利 $-x$ 算子）。
+其中， $\sigma_{i}^{x}$ 表示第 $i$ 个量子位的 $Pauli-x$ 算子（翻译：泡利 $-x$ 算子）。
 
 而问题哈密顿量，也就是 $H_P$ 设计可通过最优化的目标函数给出：
 
@@ -215,7 +216,7 @@ $$
 
 其中， $\sigma_{i}^{z}$ 表示第 $i$ 个量子位的 $Pauli-z$ 算子（泡利 $-z$ 算子）。
 
-量子退火器首先初始化量子位的叠加态使得 $\mathcal{H}(0)=H_{I}$ ，然后在退火时间内操作量子位耦合，使 $\mathcal{H}(s)$ 朝向 $ H_{P}$ 发展，退火结束后，就处于 problem Hamiltonian 的本征态（eigenstate）。根据量子计算的绝热定理，如果退火时间足够长，该时变哈密顿量 $\mathcal{H}(s)$ 将始终保持基态，即最优化函数( $\mathcal{H}(s)$ 的解)。
+量子退火器首先初始化量子位的叠加态使得 $\mathcal{H}(0)=H_{I}$ ，然后在退火时间内操作量子位耦合，使 $\mathcal{H}(s)$ 朝向 $H_{P}$ 发展，退火结束后，就处于 problem Hamiltonian 的本征态（eigenstate）。根据量子计算的绝热定理，如果退火时间足够长，该时变哈密顿量 $\mathcal{H}(s)$ 将始终保持基态，即最优化函数( $\mathcal{H}(s)$ 的解)。
 
 
 
@@ -253,7 +254,8 @@ $$
 
 这里介绍一下[dwave-samplers](https://github.com/dwavesystems/dwave-samplers)库中的`SimulatedAnnealingSampler`采样器以及对应的参数。
 
-在该库中，初始温度和终止温度是通过 $\frac{1}{TK}$ 转换为 $\beta_1$ 和 $\beta_0$ （其中， $K$ 是波尔兹常量），通过传入参数 $\text{beta\_range} = [\beta_0,\beta_1]$ 传入。而降温速率一般通过 `beta_schedule_type` 和 `num_sweeps` 来设置：对于 `beta_schedule_type` 参数，有三种方式：
+在该库中，初始温度和终止温度是通过 $\frac{1}{TK}$ 转换为 $\beta_1$ 和 $\beta_0$ （其中， $K$ 是波尔兹常量），通过传入参数 $\text{beta_range} = [\beta_0,\beta_1]$ 传入。而降温速率一般通过 `beta_schedule_type` 和 `num_sweeps` 来设置：对于 `beta_schedule_type` 参数，有三种方式：
+
 
 * "linear"：线性，在 $[\beta_0,\beta_1]$ 中线性获取 `num_sweeps` 个采样点作为每次更新温度的数值
 * "geometric"，几何，在 $[\beta_0,\beta_1]$ 中通过 `np.geomspace(*beta_range, num=num_betas)` 获取 `num_sweeps` 个采样点作为每次更新温度的数值。
@@ -278,7 +280,7 @@ $$
 > 在不同论文中有不同的叫法：
 >
 > * Higher Order Binary Optimization (`HOBO`)：高阶二进制优化
-> * termwise quadratizationquadratization:按期限平方，这个是将单项式单次转换为二次。也就是 $x_i = x_i^2, \quad where \quad x_i \in{0,1}$ 
+> * termwise quadratizationquadratization:按期限平方，这个是将单项式单次转换为二次。也就是 $x_i = x_i^2, \quad where \quad x_i \in \\{0,1\\}$ 
 
 
 
@@ -300,7 +302,7 @@ $$
 
 ![image-20230416110839378](./assets/image-20230416110839378.png)
 
-这个比较难理解，但是，想到 $x_i \in \{ 0 , 1 \}$ ，并且，这里y是很多个的组合，并且 $y_i \in \{ 0, 1\}$ 就比较容易穷举，在论文`Linear and quadratic reformulations of nonlinear optimization problems in binary variables`中证明了对于最高次数 $d$ ，需要的变量 $y$ 个数是 $\lceil\log d\rceil-1$ 。（**感觉公式表达有问题**）
+这个比较难理解，但是，想到 $x_i \in \\{ 0 , 1 \\}$ ，并且，这里y是很多个的组合，并且 $y_i \in \\{ 0, 1 \\}$ 就比较容易穷举，在论文`Linear and quadratic reformulations of nonlinear optimization problems in binary variables`中证明了对于最高次数 $d$ ，需要的变量 $y$ 个数是 $\lceil\log d\rceil-1$ 。（**感觉公式表达有问题**）
 
 > 这种代替方式有两个问题，具体可以看看论文，我们没有使用变量代替降次，所以对于这个`HOBO`没有仔细研究。
 
@@ -337,11 +339,12 @@ $$
 对于问题一，我们定义决策变量 $x_{i,j}$ 用于表示：
 
 $$
-x_{i,j}=\left\{ \begin{array}{c} 
-	0 \quad ,不选第\ i\ 个信用评分卡的第\ j\ 个阈值 \\
-	1 \quad ,选第\ i\ 个信用评分卡的第\ j\ 个阈值\\
-\end{array} \right.
+x_{i,j}=\left\{\begin{matrix} 
+	0 \quad ,不选第 \ i\ 个信用评分卡的第 \ j\ 个阈值 \\
+	1 \quad ,选第 \ i\ 个信用评分卡的第 \ j\ 个阈值\\
+\end{matrix}\right. 
 $$
+
 
 那么对于决策变量 $x_{i,j}$ 对应的通过率 $P_{i,j}$ 与坏损率 $Q_{i,j}$ 有：
 
@@ -360,11 +363,7 @@ $$
 考虑整体，也就是最终收入 $H$ 有
 
 $$
-H = \sum_{{(i, j) \in \mathcal{X}}} H_{i,j} \\
-= \sum_{i=1}^{100} \sum_{j=1}^{10} [{L \ * \ I \ * \ P_{i,j} \ * \ (1-Q_{i,j})  \ - \ L \ * \ P_{i,j} \ * \ Q_{i,j}}] \\
-= L \ * \ I \ * \sum_{i=1}^{100} \sum_{j=1}^{10}P_{i,j}  - L*(I+1)*\sum_{i=1}^{100} \sum_{j=1}^{10}(P_{i,j} \ * \ Q_{i,j}) 
-\\
-=  L \ * \ I \ * \sum_{i=1}^{100} \sum_{j=1}^{10}(T_{i,j} \ * \ x_{i,j})  - L*(I+1)*\sum_{i=1}^{100} \sum_{j=1}^{10}(T_{i,j} \ * \ H_{i,j} \ * \ x_{i,j}^2)
+H = \sum_{{(i, j) \in \mathcal{X}}} H_{i,j} \\= \sum_{i=1}^{100} \sum_{j=1}^{10} [{L \ * \ I \ * \ P_{i,j} \ * \ (1-Q_{i,j})  \ - \ L \ * \ P_{i,j} \ * \ Q_{i,j}}] \\= L \ * \ I \ * \sum_{i=1}^{100} \sum_{j=1}^{10}P_{i,j}  - L*(I+1)*\sum_{i=1}^{100} \sum_{j=1}^{10}(P_{i,j} \ * \ Q_{i,j}) \\=  L \ * \ I \ * \sum_{i=1}^{100} \sum_{j=1}^{10}(T_{i,j} \ * \ x_{i,j})  - L*(I+1)*\sum_{i=1}^{100} \sum_{j=1}^{10}(T_{i,j} \ * \ H_{i,j} \ * \ x_{i,j}^2)
 $$
 
 对于最终收入，我们考虑最小化目标函数 $-H$ ,即
@@ -379,7 +378,7 @@ $$
 \sum_{{(i, j) \in \mathcal{X}}} x_{i,j}= \sum_{i=1}^{100} \sum_{j=1}^{10} x_{i,j} = 1
 $$
 
-> 这里的 $\mathcal{X}$ 空间定义为：$\mathcal{X}:=\{(i, j) \mid i \in \{1,2,...,100\}, j \in \{1,2,...,10 \} \}$ 
+> 这里的 $\mathcal{X}$ 空间定义为：$\mathcal{X}:=\\{(i, j) \mid i \in \\{1,2,...,100\\}, j \in \\{1,2,...,10 \\} \\}$
 
 
 
@@ -544,10 +543,10 @@ if __name__ == '__main__':
 定义决策变量 $x_{i,j,k}$ 用于表示:
 
 $$
-x_{i,j,k}=\left\{ \begin{array}{c} 
+x_{i,j,k}=\left\{\begin{matrix} 
 	0 \quad ,不选: \ 第1张信用评分卡选第 \ i \ 个阈值，第2张信用评分卡选第 \ j \ 个阈值，第3张信用评分卡选第 \ k \ 个阈值 \\
 	1 \quad ,选: \ 第1张信用评分卡选第 \ i \ 个阈值，第2张信用评分卡选第 \ j \ 个阈值，第3张信用评分卡选第 \ k \ 个阈值 \\
-\end{array} \right.
+\end{matrix}\right. 
 $$
 
 那么对于决策变量 $x_{i,j,k}$ 对应的通过率 $P_{i,j,k}$ 与坏损率 $Q_{i,j,k}$ 有：
@@ -566,22 +565,7 @@ $$
 考虑整体，也就是最终收入 $H$ 有
 
 $$
-H = \sum_{{(i, j, k) \in \mathcal{X}}} H_{i,j,k} \\
-
-
-= \sum_{i=1}^{10} \sum_{j=1}^{10} \sum_{k=1}^{10} \ [ {L \ * \ I \ * \ P_{i,j,k} \ * \ (1-Q_{i,j,k})  \ - \ L \ * \ P_{i,j,k} \ * \ Q_{i,j,k}} ]\\
-
-
-= L \ * \ I \ * \sum_{i=1}^{10} \sum_{j=1}^{10} \sum_{k=1}^{10}P_{i,j,k}  - L*(I+1)*\sum_{i=1}^{10} \sum_{j=1}^{10} \sum_{k=1}^{10}(P_{i,j,k} \ * \ Q_{i,j,k}) 
-\\
-
-
-=  L \ * \ I \ * \sum_{i=1}^{10} \sum_{j=1}^{10} \sum_{k=1}^{10}
-[( T_{1,i}  *  T_{2,j}  *  T_{3,k} ) \ * \ x_{i,j,k}]
-\\
-
--\frac {L*(I+1)}{3} * \sum_{i=1}^{10} \sum_{j=1}^{10} \sum_{k=1}^{10}
-[(H_{1,i} + H_{2,j} + H_{3,k}) * T_{1,i}  *  T_{2,j}  *  T_{3,k} * x_{i,j,k}^2]
+H = \sum_{{(i, j, k) \in \mathcal{X}}} H_{i,j,k} \\= \sum_{i=1}^{10} \sum_{j=1}^{10} \sum_{k=1}^{10} \ [ {L \ * \ I \ * \ P_{i,j,k} \ * \ (1-Q_{i,j,k})  \ - \ L \ * \ P_{i,j,k} \ * \ Q_{i,j,k}} ]\\= L \ * \ I \ * \sum_{i=1}^{10} \sum_{j=1}^{10} \sum_{k=1}^{10}P_{i,j,k}  - L*(I+1)*\sum_{i=1}^{10} \sum_{j=1}^{10} \sum_{k=1}^{10}(P_{i,j,k} \ * \ Q_{i,j,k}) \\=  L \ * \ I \ * \sum_{i=1}^{10} \sum_{j=1}^{10} \sum_{k=1}^{10}[( T_{1,i}  *  T_{2,j}  *  T_{3,k} ) \ * \ x_{i,j,k}]\\-\frac {L*(I+1)}{3} * \sum_{i=1}^{10} \sum_{j=1}^{10} \sum_{k=1}^{10}[(H_{1,i} + H_{2,j} + H_{3,k}) * T_{1,i}  *  T_{2,j}  *  T_{3,k} * x_{i,j,k}^2]
 $$
 
 同样考虑最小化目标函数 $-H$ ,此时决策变量的约束条件为：(只有一种方案选取)
@@ -619,7 +603,7 @@ min \ \ y = L \ * \ I \ * \sum_{i=1}^{10} \sum_{j=1}^{10} \sum_{k=1}^{10}
 [(H_{1,i} + H_{2,j} + H_{3,k}) * T_{1,i}  *  T_{2,j}  *  T_{3,k} * x_{i,j,k}^2] \\  + \lambda * (\sum_{i=1}^{10} \sum_{j=1}^{10} \sum_{k=1}^{10} x_{i,j,k} - 1)^2
 $$
 
-> 在代码实现过程中，由于需要计算总通过率 $T_{1,i} \ * \ T_{2,j} \ * \ T_{3,k}$ 以及总坏账率 $ \frac{1}{3} *  (H_{1,i}  +  H_{2,j}  + H_{3,k})$ 。如果使用for循环效率比较慢，这里使用了`numpy`库中的广播机制来获得相关计算矩阵。
+> 在代码实现过程中，由于需要计算总通过率 $T_{1,i} \ * \ T_{2,j} \ * \ T_{3,k}$ 以及总坏账率 $\frac{1}{3} *  (H_{1,i}  +  H_{2,j}  + H_{3,k})$ 。如果使用for循环效率比较慢，这里使用了`numpy`库中的广播机制来获得相关计算矩阵。
 
 代码实现如下：
 
@@ -790,10 +774,7 @@ if __name__ == '__main__':
 最开始我们考虑的是：设计决策变量 $x_{i,j}$ 用于表示：
 
 $$
-x_{i,j}=\left\{ \begin{array}{c} 
-	0 \quad ,不选第\ i\ 个信用评分卡的第\ j\ 个阈值 \\
-	1 \quad ,选第\ i\ 个信用评分卡的第\ j\ 个阈值\\
-\end{array} \right.
+x_{i,j}=\left\{\begin{matrix} 	0 \quad ,不选第\ i\ 个信用评分卡的第\ j\ 个阈值 \\	1 \quad ,选第\ i\ 个信用评分卡的第\ j\ 个阈值\\\end{matrix}\right. 
 $$
 
 在不考虑约束条件的情况下，整体的通过率 $P$ 和坏损率 $Q$ 满足：
@@ -824,10 +805,10 @@ $$
 以上所有考虑都存在一个问题，就是怎样解决整体的通过率 $P$ 表述。如果能够将 $P$ 转换为一次项的表达，那么对于整个求解问题就很简单了。那么就重新定义决策变量 $x_{i,j,k,l,m,n}$ 用于决策是否选择：第 $i$ 张信用评分卡选第 $l$ 个阈值，第 $j$ 张信用评分卡选第 $m$ 个阈值，第 $k$ 张信用评分卡选第 $n$ 个阈值。即：
 
 $$
-x_{i,j,k,l,m,n}=\left\{ \begin{array}{c} 
+x_{i,j,k,l,m,n}=\left\{\begin{matrix} 
 	0 \quad ,不选 \\
 	1 \quad ,选
-\end{array} \right.
+\end{matrix}\right. 
 $$
 
 那么对于决策变量 $x_{i,j,k,l,m,n}$ 对应的通过率 $P_{i,j,k,l,m,n}$ 与坏损率 $Q_{i,j,k,l,m,n}$ 有：
