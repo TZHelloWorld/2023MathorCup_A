@@ -339,10 +339,7 @@ $$
 对于问题一，我们定义决策变量 $x_{i,j}$ 用于表示：
 
 $$
-x_{i,j}=\\left\{\begin{matrix} 
-	0 \\quad ,不选第 \ i\ 个信用评分卡的第 \ j\ 个阈值 \\
-	1 \\quad ,选第 \ i\ 个信用评分卡的第 \ j\ 个阈值\\
-\\end{matrix}\\right. 
+x_{i,j}=\\left\\{\\begin{matrix}   0 \\quad ,不选第 \\ i\\ 个信用评分卡的第 \\ j\\ 个阈值 \\\\    1 \\quad ,选第 \\ i\\ 个信用评分卡的第 \\ j\\ 个阈值 \\end{matrix}\\right. 
 $$
 
 
