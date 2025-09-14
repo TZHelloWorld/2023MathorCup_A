@@ -44,24 +44,24 @@ $$\min \quad y=\mathbf{x}^t \mathbf{Q} \mathbf{x}$$
 $$\min \sum Q_{i j} x_i x_j$$
 
 
-由于 $x_i \in \{0,1\}$ 属于二进制变量，存在 $x_i = x_i^2$ ，因此对于更具一般性的`QUBO`模型表示如下:
+由于 $x_i \in \\{0,1\\}$ 属于二进制变量，存在 $x_i = x_i^2$ ，因此对于更具一般性的`QUBO`模型表示如下:
 
 
 $$\min \sum_{(i, j) \in \mathcal{E}} Q_{i j} x_i x_j+\sum_{i \in \mathcal{X}} c_i x_i$$
 
 其中，
 
-* $x_i \in\{0,1\}, i \in \mathcal{X}:=\{1, \ldots, X\}$ 是二进制决策变量，并且 $\mathcal{E}:=\{(i, j) \mid i, j \in \mathcal{X}, i \neq j\}$。
+* $x_i \in \\{0,1\\}, i \in \mathcal{X}:=\\{1, \ldots, X\\}$ 是二进制决策变量，并且 $\mathcal{E}:=\\{(i, j) \mid i, j \in \mathcal{X}, i \neq j\\}$。
 * $Q_{i j} \in \mathbb{R},(i, j) \in \mathcal{E}$ ,是`QUBO`目标函数的二次项系数。
 * $c_i \in \mathbb{R}, i \in \mathcal{X}$，是`QUBO`目标函数的一次（线性）项系数。
 
 
 
-`QUBO`问题可以等价的使用`Ising`模型来表示，通过变量 $y_i = 1-2x_i$ 进行转换，将原本`QUBO`模型中决策变量域空间 $\{ 0,1 \}$ 映射到 `Ising` 模型决策变量域空间 $\{ -1 , +1 \}$ 。转变后的 `Ising` 模型表述如下：
+`QUBO`问题可以等价的使用`Ising`模型来表示，通过变量 $y_i = 1-2x_i$ 进行转换，将原本`QUBO`模型中决策变量域空间 $\\{ 0,1 \\}$ 映射到 `Ising` 模型决策变量域空间 $\\{ -1 , +1 \\}$ 。转变后的 `Ising` 模型表述如下：
 
 $$\begin{aligned}& \min \sum_{(i, j) \in \mathcal{E}} J_{i j} y_{i} y_{j}+\sum_{i \in \mathcal{X}} h_{i} y_{i}, \\& J_{i j}=-\frac{1}{4} Q_{i j}\quad, h_{i}=-\frac{1}{2}\left(c_{i}+\sum_{j \in \mathcal{X}} Q_{i j}\right),\end{aligned}$$
 
-其中， $y_{i} \in\{-1,1\}, i \in \mathcal{X}$ 
+其中， $y_{i} \in \\{-1,1\\}, i \in \mathcal{X}$ 
 
 
 
@@ -73,7 +73,7 @@ $$
 min \quad y=-5 x_1-3 x_2-8 x_3-6 x_4+4 x_1 x_2+8 x_1 x_3+2 x_2 x_3+10 x_3 x_4
 $$
 
-其中，变量 $x_i \in \{ 0 , 1 \}$ 。它有一个 **线性部分** （ $-5 x_1-3 x_2-8 x_3-6 x_4$ ）和一个 **二次部分** （ $4 x_1 x_2+8 x_1 x_3+2 x_2 x_3+10 x_3 x_4$ ），由于二进制变量 $x_j$ 满足 $x_j=x_j^2$ ，所以线性部分可以写成：
+其中，变量 $x_i \in \\{ 0 , 1 \\}$ 。它有一个 **线性部分** （ $-5 x_1-3 x_2-8 x_3-6 x_4$ ）和一个 **二次部分** （ $4 x_1 x_2+8 x_1 x_3+2 x_2 x_3+10 x_3 x_4$ ），由于二进制变量 $x_j$ 满足 $x_j=x_j^2$ ，所以线性部分可以写成：
 
 $$
 -5 x_1^2-3 x_2^2-8 x_3^2-6 x_4^2
@@ -254,7 +254,7 @@ $$
 
 这里介绍一下[dwave-samplers](https://github.com/dwavesystems/dwave-samplers)库中的`SimulatedAnnealingSampler`采样器以及对应的参数。
 
-在该库中，初始温度和终止温度是通过 $\frac{1}{TK}$ 转换为 $\beta_1$ 和 $\beta_0$ （其中， $K$ 是波尔兹常量），通过传入参数 $\text{beta_range} = [\beta_0,\beta_1]$ 传入。而降温速率一般通过 `beta_schedule_type` 和 `num_sweeps` 来设置：对于 `beta_schedule_type` 参数，有三种方式：
+在该库中，初始温度和终止温度是通过 $\frac{1}{TK}$ 转换为 $\beta_1$ 和 $\beta_0$ （其中， $K$ 是波尔兹常量），通过传入参数 `beta_range` ( $= [\beta_0,\beta_1]$ )传入。而降温速率一般通过 `beta_schedule_type` 和 `num_sweeps` 来设置：对于 `beta_schedule_type` 参数，有三种方式：
 
 
 * "linear"：线性，在 $[\beta_0,\beta_1]$ 中线性获取 `num_sweeps` 个采样点作为每次更新温度的数值
@@ -339,10 +339,10 @@ $$
 对于问题一，我们定义决策变量 $x_{i,j}$ 用于表示：
 
 $$
-x_{i,j}=\left\{\begin{matrix} 
-	0 \quad ,不选第 \ i\ 个信用评分卡的第 \ j\ 个阈值 \\
-	1 \quad ,选第 \ i\ 个信用评分卡的第 \ j\ 个阈值\\
-\end{matrix}\right. 
+x_{i,j}=\\left\{\begin{matrix} 
+	0 \\quad ,不选第 \ i\ 个信用评分卡的第 \ j\ 个阈值 \\
+	1 \\quad ,选第 \ i\ 个信用评分卡的第 \ j\ 个阈值\\
+\\end{matrix}\\right. 
 $$
 
 
